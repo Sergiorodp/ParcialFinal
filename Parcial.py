@@ -95,6 +95,7 @@ def Act(cont1,cont2):
         'ADC1': {
             'prom' : promA1,
             'valActual' : cont1,
+            'alert':'no',
             }
         }
     )
@@ -103,10 +104,19 @@ def Act(cont1,cont2):
         'ADC2':{
             'prom':promA2,
             'valActual' : cont2,
+            'alert':"no",
         }
     })
 
+def returnDatoA1():
+    returnDato = db.reference('parcialInfo/ADC1/alert').get()
+    print(returnDato)
+    return returnDato
 
+def returnDatoA2():
+    returnDato = db.reference('parcialInfo/ADC2/alert').get()
+    print(returnDato)
+    return returnDato
 
 def update_win():
     global a_0,a_1
@@ -149,6 +159,14 @@ def update_win():
     if(update):
         Act(cont1,cont2)
         update = False
+
+    returnDatoA1()
+    if(returnDatoA1 == "si"):
+        print("Hacer algo con algun sensor o alguna cosa ADC1")
+    returnDatoA2()
+    if(returnDatoA2 == "si"):
+        print("hacer algo con alguna cosa que tenga el ADC2")
+
 
     pin_led4.write(data1)
     cont_indicador.config(text = str(cont1))
